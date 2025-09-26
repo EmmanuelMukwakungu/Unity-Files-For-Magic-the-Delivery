@@ -124,7 +124,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""WASD"",
                     ""id"": ""cbc6ad17-168e-470a-8369-d42d2ee980a1"",
-                    ""path"": ""3DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -133,7 +133,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
+                    ""name"": ""Up"",
                     ""id"": ""b55acce8-13aa-4ade-841e-1fa83a27f1b0"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
@@ -144,7 +144,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""down"",
+                    ""name"": ""Down"",
                     ""id"": ""170f6ec4-bd08-4aeb-a402-69d500f4e958"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
@@ -155,7 +155,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""left"",
+                    ""name"": ""Left"",
                     ""id"": ""55cc4150-1796-418b-9143-cd15433e61e3"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
@@ -166,7 +166,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""right"",
+                    ""name"": ""Right"",
                     ""id"": ""f2273dd2-79ca-4ee4-88fe-d764d73260aa"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
