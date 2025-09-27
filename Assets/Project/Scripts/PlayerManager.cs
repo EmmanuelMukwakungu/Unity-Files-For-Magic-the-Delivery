@@ -48,7 +48,7 @@ public class PlayerManager : MonoBehaviour
         playerRigidbody.MovePosition(transform.position + move * moveSpeed * Time.fixedDeltaTime);
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         float cameraInputX = cameraVector.x * lookSensitivity;
         float cameraInputY = cameraVector.y * lookSensitivity;

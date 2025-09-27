@@ -5,12 +5,14 @@ public class MenuManager : MonoBehaviour
 {
     public GameObject pauseMenuScreen;
     [SerializeField] private Image crossHair;
+    [SerializeField] private Button pauseBtn;
 
     public void PauseGame()
     {
         Time.timeScale = 0;
         pauseMenuScreen.SetActive(true);
         crossHair.enabled = false;
+        pauseBtn.enabled = false;
     }
 
     public void ResumeGameBtn()
@@ -18,6 +20,7 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 1;
         pauseMenuScreen.SetActive(false);
         crossHair.enabled = true;
+        pauseBtn.enabled = true;
     }
 
     public void OptionBtn()
