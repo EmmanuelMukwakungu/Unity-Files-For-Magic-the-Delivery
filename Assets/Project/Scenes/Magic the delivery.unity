@@ -1954,7 +1954,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2310,12 +2310,12 @@ MonoBehaviour:
   groundCheckTransform: {fileID: 25113070}
   groundCheckRadius: 0
   isGrounded: 0
-  interactionPoint: {fileID: 0}
+  interactionPoint: {fileID: 252045322}
   interactRange: 3
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
-  weaponHoldPoint: {fileID: 0}
+    m_Bits: 128
+  weaponHoldPoint: {fileID: 2029595298}
 --- !u!54 &1773344631
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2324,7 +2324,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773344629}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 10000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
