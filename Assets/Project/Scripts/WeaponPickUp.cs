@@ -1,16 +1,18 @@
 using UnityEngine;
 
-public class WeaponPickUp : MonoBehaviour
+public class WeaponPickUp : MonoBehaviour, IInteractable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private string weaponName = "Gun";
 
-    // Update is called once per frame
-    void Update()
+    public void Interact(PlayerManager player)
     {
+        Debug.Log($"Picked up {weaponName}");
         
+        transform.SetParent(player.weaponHoldPoint);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+        
+        GetComponent<Collider>().enabled = false;
+        GetComponent<Rigidbody>().isKinematic = true;
     }
 }

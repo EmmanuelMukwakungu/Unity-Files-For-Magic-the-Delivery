@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +20,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] Transform groundCheckTransform;
     [SerializeField] float groundCheckRadius;
     [SerializeField] bool isGrounded;
+    [SerializeField] private Transform interactionPoint;
+    [SerializeField] private float interactRange = 3f;
+    [SerializeField] private LayerMask interactableLayer;
+    public Transform weaponHoldPoint;
+    
 
     private void Awake()
     {
@@ -30,7 +36,8 @@ public class PlayerManager : MonoBehaviour
         _playerActions.PlayerMovement.Movement.canceled += context => OnStop(context);
         _playerActions.PlayerMovement.Camera.performed += context => OnLook(context);
         _playerActions.PlayerMovement.Camera.canceled += context => cameraVector = Vector2.zero;
-
+        _playerActions.PlayerMovement.Interact.performed += context => OnInteract(context);
+       // _playerActions.PlayerMovement.Interact.canceled += context => OnStopInteract(context);
         /**Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;*/
     }
@@ -68,4 +75,21 @@ public class PlayerManager : MonoBehaviour
     {
         cameraVector = context.ReadValue<Vector2>();
     }
+
+    private void OnInteract(InputAction.CallbackContext context)
+    {
+        if (Physics.Raycast(interactionPoint.position, interactionPoint.forward, out RaycastHit hit, interactRange,
+                interactableLayer))
+        {
+            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                interactable.Interact(this);
+            }
+        }
+    }
+    
+    
+
+    
 }
