@@ -30,10 +30,10 @@ public class PlayerHealth : MonoBehaviour
     {
         health = Mathf.Clamp(health, 0, maxHealth);
         UpdateHealthUI();
-        if (damageOverlay.color.a < 0)
+        if (damageOverlay.color.a > 0)
         {
             durationTimer += Time.deltaTime;
-            if (durationTimer >= duration)
+            if (durationTimer > duration)
             {
                 //fade image
                 float tempAlpha = damageOverlay.color.a;
