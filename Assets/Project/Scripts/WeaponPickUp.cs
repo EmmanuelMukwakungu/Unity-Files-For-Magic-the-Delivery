@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WeaponPickUp : MonoBehaviour, IInteractable
+public class WeaponPickUp : MonoBehaviour
 {
     [SerializeField] private string weaponName = "Gun";
 

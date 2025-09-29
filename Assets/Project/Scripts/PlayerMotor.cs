@@ -7,9 +7,11 @@ public class PlayerMotor : MonoBehaviour
     private CharacterController _controller;
     private Vector3 playerVelocity;
    [SerializeField] public float speed = 5f;
+   [SerializeField] public bool sprinting;
    [SerializeField] public float gravity = -9.81f;
    [SerializeField] public bool isGrounded;
    [SerializeField] public float jumpHeight = 3f;
+   [SerializeField] public Transform weaponHoldPoint;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -45,6 +47,20 @@ public class PlayerMotor : MonoBehaviour
         if (isGrounded)
         {
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+    }
+
+    public void Sprint()
+    {
+        sprinting = !sprinting;
+        if (sprinting)
+        {
+            speed = 8;
+            Debug.Log("We're sprinting");
+        }
+        else
+        {
+            speed = 5;
         }
     }
 }

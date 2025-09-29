@@ -36,7 +36,7 @@ public class PlayerManager : MonoBehaviour
         _playerActions.PlayerMovement.Movement.canceled += context => OnStop(context);
         _playerActions.PlayerMovement.Camera.performed += context => OnLook(context);
         _playerActions.PlayerMovement.Camera.canceled += context => cameraVector = Vector2.zero;
-        _playerActions.PlayerMovement.Interact.performed += context => OnInteract(context);
+        //_playerActions.PlayerMovement.Interact.performed += context => OnInteract(context);
        // _playerActions.PlayerMovement.Interact.canceled += context => OnStopInteract(context);
         /**Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;*/
@@ -76,18 +76,18 @@ public class PlayerManager : MonoBehaviour
         cameraVector = context.ReadValue<Vector2>();
     }
 
-    private void OnInteract(InputAction.CallbackContext context)
+   /** private void OnInteract(InputAction.CallbackContext context)
     {
         if (Physics.Raycast(interactionPoint.position, interactionPoint.forward, out RaycastHit hit, interactRange,
                 interactableLayer))
         {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+            Interactable interactable = hit.collider.GetComponent<Interactable>();
             if (interactable != null)
             {
                 interactable.Interact(this);
             }
         }
-    }
+    }*/
     
     
 
