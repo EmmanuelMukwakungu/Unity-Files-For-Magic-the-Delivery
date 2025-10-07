@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class WeaponPickUp : MonoBehaviour
 {
-    [SerializeField] private string weaponName = "Gun";
+    [SerializeField] private string weaponName = "Pistol";
 
     public void Interact(PlayerManager player)
     {

@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class Gun : Interactable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private bool isHeld = false;
+    private Transform parent;
+    private Collider col;
     void Start()
     {
         
+        col = GetComponent<Collider>();
     }
 
     // Update is called once per frame
@@ -19,12 +22,25 @@ public class Gun : Interactable
         PlayerMotor playerMotor = interactor.GetComponent<PlayerMotor>();
         if (playerMotor != null)
         {
-            transform.SetParent(playerMotor.weaponHoldPoint);
-            transform.localPosition = Vector3.zero;
-            transform.localRotation = Quaternion.identity;
+            if (!isHeld)
+            {
+                parent = transform.parent;
+                transform.SetParent(playerMotor.weaponHoldPoint);
+                transform.localPosition = Vector3.zero;
+                transform.localRotation = Quaternion.Euler(Vector3.zero);
         
-            GetComponent<Collider>().enabled = false;
-            GetComponent<Rigidbody>().isKinematic = true;
+               
+                col.enabled = false;
+                isHeld = true;
+            }
+            else
+            {
+                transform.SetParent(null);
+                col.enabled = true;
+                isHeld = false;
+            }
+
+            
         }
 
     }

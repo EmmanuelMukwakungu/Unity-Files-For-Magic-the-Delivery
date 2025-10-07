@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
-    private CameraMovement playerCamera;
+    private Camera playerCamera;
     [SerializeField] private float distance = 3f;
     [SerializeField] private LayerMask layerMask;
     private PlayerUI playerUI;
@@ -12,7 +12,7 @@ public class PlayerInteract : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerCamera = GetComponent<CameraMovement>();
+        playerCamera = GetComponent<CameraMovement>()._camera;
         playerUI = GetComponent<PlayerUI>();
         _inputManager = GetComponent<InputManager>();
     }
@@ -30,7 +30,7 @@ public class PlayerInteract : MonoBehaviour
             {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();  
                 playerUI.UpdateText(interactable._promptMessage);
-                if (_inputManager._playerMovement.Interact.triggered)
+                if (_inputManager._playerMovement.Interact.triggered)//If E is pressed
                 {
                     interactable.BaseInteract(gameObject);
                 }

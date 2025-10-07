@@ -45,7 +45,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void UpdateHealthUI()
     {
-        Debug.Log(health);
+        //Debug.Log(health);
         float fillFront = FrontHealthBar.fillAmount;
         float fillBack = BackHealthBar.fillAmount;
         float HealthFraction = health / maxHealth;
