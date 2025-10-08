@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
+    private Image healthBarSprite;
     private float health;
     public float maxHealth = 100;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -15,7 +17,12 @@ public class EnemyHealth : MonoBehaviour
     {
         
     }
-    
+
+    public void UpdateHealthBar(float _health, float _maxHealth)
+    {
+        healthBarSprite.fillAmount = health / maxHealth;
+    }
+
     public void TakeDamage(float damage)
     {
         health -= damage;
