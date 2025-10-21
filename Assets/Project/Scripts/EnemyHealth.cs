@@ -3,33 +3,54 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    private Image healthBarSprite;
+    [Header("UI Elements")]
+    [SerializeField] private Image healthBarSprite;
+    
+    [Header("Health Settings")]
     private float health;
-    public float maxHealth = 100;
+    public float maxHealth = 3f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        health = maxHealth;
+        UpdateHealthBar();
+        
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            TakeDamage(1);
+        }
     }
 
-    public void UpdateHealthBar(float _health, float _maxHealth)
+    public void UpdateHealthBar()
     {
-        healthBarSprite.fillAmount = health / maxHealth;
+        if (healthBarSprite != null)
+        {
+            healthBarSprite.fillAmount = health / maxHealth;
+        }
     }
 
     public void TakeDamage(float damage)
     {
         health -= damage;
-        //lerpTimer = 0f;
-        //durationTimer = 0f;
-        //damageOverlay.color = new Color(damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, 1);
+        health = Mathf.Clamp(health, 0, maxHealth);
+        UpdateHealthBar();
 
-        
+        if (health <= 0)
+        {
+            Die();
+        }
+
+    }
+
+    public void Die()
+    {
+        Debug.Log("Enemy has died");
+        gameObject.SetActive(false);
     }
 }

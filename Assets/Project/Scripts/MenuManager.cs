@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
@@ -24,7 +25,7 @@ public class MenuManager : MonoBehaviour
         crossHair.enabled = true;
         pauseBtn.gameObject.SetActive(true); 
     }
-
+    
     public void OptionBtn()
     {
         Debug.Log("Option Menu Coming SOON!-");
@@ -34,5 +35,10 @@ public class MenuManager : MonoBehaviour
     {
         //UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
+    }
+
+    public void RestartGameBtn()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

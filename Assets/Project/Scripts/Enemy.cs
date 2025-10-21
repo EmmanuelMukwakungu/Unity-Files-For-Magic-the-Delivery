@@ -1,26 +1,29 @@
 using System;
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("References")]
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask GroundLayer, whatIsPlayer;
-    public Vector3 walkPoint;
-    bool walkPointSet;
-    public float walkPointRange;
     
-    public float timeBetweenAttacks;
-    bool alreadyAttacked;
+    [Header("Patrol Settings")]
+    public List<Transform> patrolPoints = new List<Transform>();
+    private int currentPatrolIndex = 0;
+    public float patrolPointThreshold;
+    
+    [Header("Attack Settings")]
     public float damageAmount = 25f;
+    public float sightRange, attackRange, timeBetweenAttacks;
+    public bool playerInSightRange, playerInAttackRange, alreadyAttacked;
     
-    public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
     
-    
-
     public void Awake()
     {
         if (player == null) 
@@ -69,42 +72,26 @@ public class Enemy : MonoBehaviour
             AttackPlayer();
         }
     }
-
-    private void SearchWalkPoint()
-    {
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomx = Random.Range(-walkPointRange, walkPointRange);
-        
-        walkPoint = new Vector3(transform.position.x + randomx, transform.position.y, transform.position.z);
-
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, GroundLayer))
-        {
-            walkPointSet = true;
-        }
-    }
+    
 
     private void Patrol()
     {
-        if (!walkPointSet)
-        {
-            SearchWalkPoint();
-        }
+        if (patrolPoints.Count == 0) return;
 
-        if (walkPointSet)
-        {
-            agent.SetDestination(walkPoint);
-        }
-        
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
+        // Move to the current patrol point
+        Transform targetPoint = patrolPoints[currentPatrolIndex];
+        agent.SetDestination(targetPoint.position);
 
-        if (distanceToWalkPoint.magnitude < 1f)
+        // Check if reached patrol point
+        if (Vector3.Distance(transform.position, targetPoint.position) < patrolPointThreshold)
         {
-            walkPointSet = false;
+            // Move to next point
+            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Count;
         }
     }
-
     private void ChasePlayer()
     {
+        if (player == null) return;
         agent.SetDestination(player.position);
     }
 
@@ -113,12 +100,30 @@ public class Enemy : MonoBehaviour
         agent.SetDestination(transform.position);
         transform.LookAt(player);
     }
-    
+ 
+
     private void OnDrawGizmosSelected()
     {
+        // Draw sight and attack ranges
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
+
+        // Draw patrol route lines
+        if (patrolPoints == null || patrolPoints.Count == 0) return;
+
+        Gizmos.color = Color.cyan;
+        for (int i = 0; i < patrolPoints.Count; i++)
+        {
+            Transform current = patrolPoints[i];
+            Transform next = patrolPoints[(i + 1) % patrolPoints.Count];
+
+            if (current != null && next != null)
+                Gizmos.DrawLine(current.position, next.position);
+
+            if (current != null)
+                Gizmos.DrawSphere(current.position, 0.3f);
+        }
     }
 }

@@ -13,11 +13,12 @@ public class PlayerHealth : MonoBehaviour
     public Image BackHealthBar;
 
     public Image damageOverlay;
+    public GameObject GameOverScreen;
     public float duration;
     public float fadeSpeed;
 
     private float durationTimer;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     void Start()
     {
         health = maxHealth;
@@ -74,8 +75,13 @@ public class PlayerHealth : MonoBehaviour
         lerpTimer = 0f;
         durationTimer = 0f;
         damageOverlay.color = new Color(damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, 1);
-
         
+        if (health == 0)
+        {
+            GameOverScreen.SetActive(true);
+        }
+
+
     }
 
     public void RestoreHealth(float healAmount)
