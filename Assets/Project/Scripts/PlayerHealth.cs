@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
+    MenuManager menuManager;
     private float health;
     public float maxHealth = 100;
     private float lerpTimer;
@@ -79,6 +80,8 @@ public class PlayerHealth : MonoBehaviour
         if (health == 0)
         {
             GameOverScreen.SetActive(true);
+            menuManager.crossHair.enabled = false;
+            menuManager.pauseBtn.enabled = false;
         }
 
 

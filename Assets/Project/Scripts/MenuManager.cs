@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     public GameObject pauseMenuScreen;
-    [SerializeField] private Image crossHair;
-    [SerializeField] private Button pauseBtn;
+    [SerializeField] public Image crossHair;
+    [SerializeField] public Button pauseBtn;
     
 
     public void PauseGame()
