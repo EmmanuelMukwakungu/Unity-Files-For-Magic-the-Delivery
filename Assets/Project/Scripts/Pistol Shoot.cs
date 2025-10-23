@@ -45,6 +45,7 @@ public class PistolShoot : MonoBehaviour
 
     private void MyInputs()
     {
+       // if(!isEquiped) return;
         
         if (allowInvoke)
         {
