@@ -20,6 +20,7 @@ public class Enemy : MonoBehaviour
     
     [Header("Attack Settings")]
     public float damageAmount = 25f;
+    public float damageOnEnemy = 2f;
     public float sightRange, attackRange, timeBetweenAttacks;
     public bool playerInSightRange, playerInAttackRange, alreadyAttacked;
     
@@ -49,7 +50,16 @@ public class Enemy : MonoBehaviour
                 playerHealth.TakeDamage(damageAmount);
             }
         }
-            
+
+        if (other.CompareTag("Bullet"))
+        {
+            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.TakeDamage(damageOnEnemy);
+            }
+        }
+
     }
 
     private void Update()

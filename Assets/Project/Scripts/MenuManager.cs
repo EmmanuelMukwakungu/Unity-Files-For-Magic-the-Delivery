@@ -8,7 +8,14 @@ public class MenuManager : MonoBehaviour
     public GameObject pauseMenuScreen;
     [SerializeField] public Image crossHair;
     [SerializeField] public Button pauseBtn;
-    
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseGame();
+        }
+    }
 
     public void PauseGame()
     {

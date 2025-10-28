@@ -14,10 +14,13 @@ public class InputManager : MonoBehaviour
     _playerMovement = _playerActions.PlayerMovement;
     
     _motor = GetComponent<PlayerMotor>();
+    
     _cameraMovement = GetComponent<CameraMovement>();
     
     _playerMovement.Jump.performed += context => _motor.Jump();
     _playerMovement.Sprint.performed += context => _motor.Sprint();
+    _playerMovement.MeeleAttack.performed += context => _motor.Attack();
+    //_playerMovement.Shoot.performed += context => _weaponController.Shoot();
   }
 
   void FixedUpdate()

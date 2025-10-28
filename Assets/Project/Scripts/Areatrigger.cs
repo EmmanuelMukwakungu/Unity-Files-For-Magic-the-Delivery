@@ -4,12 +4,14 @@ using UnityEngine;
 public class Areatrigger : MonoBehaviour
 {
     public GameObject TriggerArea;
+    public EnemyHealth enemyHealth;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Trigger"))
+        if (other.CompareTag("Bullet"))
         {
-            Debug.Log("trigger collided with player");
+            enemyHealth.TakeDamage(1);
+            Debug.Log("Enemy took damage!");
         }
     }
 }

@@ -6,47 +6,62 @@ using UnityEngine;
 
 public class PistolShoot : MonoBehaviour
 {
+    [Header("Bullet")]
     [SerializeField] private GameObject bulletPrefab;
+    
+    [Header("Bullet Force")]
     public float shootForce;
     public float upwardForce;
+    
+    [Header("Weapon Stats")]
     public float timeBetweenShots, spread, reloadTime, timeBetweenShooting;
-
     public int bulletsPerTap;
     public int magazineSize;
-
     public bool allowButtonHold;
-
     int bulletsLeft, bulletsShot;
     bool shooting, readyToShoot, reloading;
 
+    [Header("References")]
     public Camera mainCamera;
     public Transform attackPoint;
-    
     public TextMeshProUGUI ammoText;
-
     public bool allowInvoke = true;
     public bool isEquiped = false;
+    
+    public Vector3 rotationSpeed = new Vector3(0f, 50f, 0f);
+    
 
     private void Awake()
     {
-        bulletsLeft = magazineSize;
+        bulletsLeft = magazineSize; //Full Mag
         readyToShoot = true;
+        ammoText.enabled = false;
+        
     }
 
     private void Update()
     {
-        MyInputs();
-
         if (ammoText != null)
         {
             ammoText.SetText(bulletsLeft / bulletsPerTap + "/" + magazineSize / bulletsPerTap);
+        }
+        
+        if (transform.parent != null && transform.parent.CompareTag("Weapon Hold Point"))
+        {
+            //Can only shoot when weapon is equipped
+            isEquiped = true;
+            MyInputs();
+            ammoText.enabled = true;
+        }
+        else
+        {
+            isEquiped = false;
+            RotateObject();
         }
     }
 
     private void MyInputs()
     {
-       // if(!isEquiped) return;
-        
         if (allowInvoke)
         {
             shooting = Input.GetKey(KeyCode.Mouse0);
@@ -90,7 +105,7 @@ public class PistolShoot : MonoBehaviour
             targetPoint = ray.GetPoint(75);
         }
         
-        Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
+        Vector3 directionWithoutSpread = (targetPoint - attackPoint.position).normalized;
         
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
@@ -101,8 +116,8 @@ public class PistolShoot : MonoBehaviour
         
         currentBullet.transform.forward = directionWithSpread.normalized;
 
-        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
-        currentBullet.GetComponent<Rigidbody>().AddForce(mainCamera.transform.up * upwardForce, ForceMode.Impulse);
+        currentBullet.GetComponent<Rigidbody>().AddForce(directionWithoutSpread * shootForce, ForceMode.Impulse);
+        //currentBullet.GetComponent<Rigidbody>().AddForce(mainCamera.transform.up * upwardForce, ForceMode.Impulse);
 
         Destroy(currentBullet, 15f);
         
@@ -113,6 +128,12 @@ public class PistolShoot : MonoBehaviour
         {
             Invoke("ResetShot", timeBetweenShots);
             allowInvoke = false;
+        }
+        
+        //If more than one bullet per tap shoot function is repeated
+        if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
+        {
+            Invoke("Shoot", timeBetweenShots);
         }
     }
 
@@ -132,5 +153,10 @@ public class PistolShoot : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         reloading = false;
+    }
+    
+    public void RotateObject()
+    {
+        transform.Rotate(rotationSpeed * Time.deltaTime);
     }
 }

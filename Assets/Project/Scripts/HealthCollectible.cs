@@ -24,7 +24,12 @@ public class HealthCollectible : Interactable
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(rotationSpeed * Time.deltaTime);
+        RotateObject();
         //Mathf.PingPong(rotationSpeed.magnitude * Time.deltaTime, 1f);
+    }
+
+    public void RotateObject()
+    {
+        transform.Rotate(rotationSpeed * Time.deltaTime);
     }
 }

@@ -23,7 +23,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-            TakeDamage(1);
+            TakeDamage(5);
         }
     }
 
