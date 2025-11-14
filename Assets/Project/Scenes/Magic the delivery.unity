@@ -965,7 +965,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 46235414}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 487010537}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: AudioBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &46235414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3514,7 +3526,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 278011529}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 487010537}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: SpecularAudioBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &278011529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3665,7 +3689,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 487010537}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: QuitBtn
+        m_MethodName: QuitToMainMenuBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6012,8 +6036,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuScreen: {fileID: 135823794}
+  settingsMenuScreen: {fileID: 529655690}
   crossHair: {fileID: 1819711226}
   pauseBtn: {fileID: 1193316623}
+  musicSlider: {fileID: 188512780}
+  soundSlider: {fileID: 223880261}
+  voiceSlider: {fileID: 1757454688}
 --- !u!1 &488055064
 GameObject:
   m_ObjectHideFlags: 0
@@ -7091,7 +7119,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 574013365}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 487010537}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: ControlsBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &574013365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12939,7 +12979,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 687300166}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 487010537}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: GnomeBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &687300166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13431,8 +13483,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1484332943}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.653, y: 0}
-  m_AnchorMax: {x: 0.653, y: 1}
+  m_AnchorMin: {x: 0.57, y: 0}
+  m_AnchorMax: {x: 0.57, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -19270,7 +19322,7 @@ RectTransform:
   m_Father: {fileID: 1893339905}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.653, y: 1}
+  m_AnchorMax: {x: 0.57, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -24650,7 +24702,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.653
+  m_Value: 0.57
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -25819,7 +25871,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1820792643}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 487010537}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: BackBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1820792643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26052,6 +26116,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzle: {fileID: 164673387}
   weaponData: {fileID: 11400000, guid: 6e4b590bc54a4364c83e69ec0eca5770, type: 2}
+  attackDistance: 3
+  attackDelay: 0.4
+  attackSpeed: 1
+  attackDamage: 1
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  hitEffect: {fileID: 0}
+  swordSwing: {fileID: 0}
+  hitSound: {fileID: 0}
 --- !u!65 &1829568649
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27976,7 +28050,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1993824358}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 487010537}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: VideoBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1993824358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29293,17 +29379,8 @@ MonoBehaviour:
   gravity: -9.81
   isGrounded: 0
   jumpHeight: 1.5
+  equippedWeapon: {fileID: 0}
   weaponHoldPoint: {fileID: 2029595298}
-  attackDistance: 3
-  attackDelay: 0.4
-  attackSpeed: 1
-  attackDamage: 1
-  attackLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  hitEffect: {fileID: 5334228485563152753, guid: 0134bdc80242c974b88f68d7bb298ed9, type: 3}
-  swordSwing: {fileID: 0}
-  hitSound: {fileID: 0}
 --- !u!114 &2076142644
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -19,26 +20,16 @@ public class PlayerMotor : MonoBehaviour
    [SerializeField] public float gravity = -9.81f;
    [SerializeField] public bool isGrounded;
    [SerializeField] public float jumpHeight = 3f;
+   
+
+   [Header("Weapon Handling")] 
+   public WeaponController equippedWeapon;
    [SerializeField] public Transform weaponHoldPoint;
 
-   [Header("Attack Parameters")] 
-   public float attackDistance = 3f;
-   public float attackDelay = 0.4f;
-   public float attackSpeed = 1f;
-   public int attackDamage = 1;
-   public LayerMask attackLayer;
    
-   public GameObject hitEffect;
-   public AudioClip swordSwing;
-   public AudioClip hitSound;
-   
-   bool attacking = false;
-   private bool readyToAttack = true;
-   private int attackCount;
 
-   public const string IDLE = "Idle";
-   public const string ATTACK1 = "Attack 1";
-   public const string ATTACK2 = "Attack 2";
+   public const string IDLEHoldMelee = "Idle";
+  
    public const string WALK = "Walk";
 
    private string currentAnimationState;
@@ -62,9 +53,10 @@ public class PlayerMotor : MonoBehaviour
         isGrounded = _controller.isGrounded;
         
         //Repeat Inputs
-        if (_input._playerMovement.MeeleAttack.IsPressed())
+        if (_input._playerMovement.MeeleAttack.triggered && equippedWeapon != null)
         {
-            Attack();
+            //Attack();
+            equippedWeapon.MeleeAttack();
         }
         
         SetAnimations();
@@ -117,72 +109,72 @@ public class PlayerMotor : MonoBehaviour
         }
     }
 
-    public void Attack()
-    {
-        if(!readyToAttack || attacking) return;
-        readyToAttack = false;
-        attacking = true;
-        
-        Invoke(nameof(ResetAttack), attackSpeed);
-        Invoke(nameof(AttackRaycast), attackDelay);
-        
-        //audioSource.pitch = Random.Range(0.9f, 1.1f);
-        //audioSource.PlayOneShot(swordSwing);
+    #region Storing currently equipped weapons and unequipping them
 
-        if (attackCount == 0)
+    public void EquipWeapon( WeaponController newWeapon)
+    {
+        if (equippedWeapon != null)
         {
-            ChanAnimationState(ATTACK1);
-            attackCount++;
+            Destroy(equippedWeapon.gameObject); //Remove old weapon
+        }
+
+        equippedWeapon = Instantiate(newWeapon, weaponHoldPoint);
+        equippedWeapon.playerMotor = this;
+        equippedWeapon.SetCamera(_cam);
+
+        if (equippedWeapon.weaponData.type == WeaponType.Bullet)
+        {
+            ChanAnimationState("HoldGun");
         }
         else
         {
-            ChanAnimationState(ATTACK2);
-            attackCount = 0;
+            ChanAnimationState(IDLEHoldMelee);
         }
     }
 
-    public void ResetAttack()
+    public void UnequipWeapon()
     {
-        attacking = false;
-        readyToAttack = true;
-    }
-
-    public void AttackRaycast()
-    {
-        if (Physics.Raycast(_cam._camera.transform.position, _cam._camera.transform.forward, out RaycastHit hit,
-                attackDistance, attackLayer))
+        if (equippedWeapon != null)
         {
-            HitTarget(hit.point);
-            if(hit.transform.TryGetComponent<EnemyHealth>(out EnemyHealth H))
-            {
-                H.TakeDamage(attackDamage);
-            }
+            Destroy(equippedWeapon.gameObject);
         }
-
-    }
-
-    public void HitTarget(Vector3 pos)
-    {
-        //audioSource.pitch = 1;
-        //audioSource.PlayOneShot(hitSound);
         
-        GameObject GO = Instantiate(hitEffect, pos, Quaternion.identity);
-        Destroy(GO, 20);
+        equippedWeapon = null;
+        ChanAnimationState("Player Idle");
     }
 
+    #endregion
+
+    #region Handling Melee Attack
+
+    public void HandlePrimaryAttack()
+    {
+        if (equippedWeapon == null) return;
+        {
+            if (equippedWeapon.weaponData.type == WeaponType.Bullet)
+            
+                equippedWeapon.Shoot();
+            
+            else
+            
+                equippedWeapon.MeleeAttack();
+            
+        }
+    }
+
+    #endregion
+    
+
+   
     public void SetAnimations()
     {
         //If player is not Attacking
-        if (!attacking)
+        if (equippedWeapon != null && equippedWeapon.IsAttacking())
         {
-            if (playerVelocity.x == 0 && playerVelocity.z == 0)
-            {
-                ChanAnimationState(IDLE);
-            }
+            if (Mathf.Abs(playerVelocity.x) < 0.1f && Mathf.Abs(playerVelocity.z) < 0.1f)
+                ChanAnimationState(IDLEHoldMelee);
             else
-            {
                 ChanAnimationState(WALK);
-            }
         }
     }
 

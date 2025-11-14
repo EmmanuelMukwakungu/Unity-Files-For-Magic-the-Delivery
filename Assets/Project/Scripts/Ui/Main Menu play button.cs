@@ -4,11 +4,21 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenuplaybutton : MonoBehaviour
-
 {
+    private MenuManager menuManager;
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Magic the delivery");
+    }
+
+    public void MainMenuOptions()
+    {
+        menuManager.OptionBtn();
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
 

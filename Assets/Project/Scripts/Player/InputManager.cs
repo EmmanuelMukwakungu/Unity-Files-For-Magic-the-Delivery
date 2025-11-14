@@ -19,8 +19,9 @@ public class InputManager : MonoBehaviour
     
     _playerMovement.Jump.performed += context => _motor.Jump();
     _playerMovement.Sprint.performed += context => _motor.Sprint();
-    _playerMovement.MeeleAttack.performed += context => _motor.Attack();
-    //_playerMovement.Shoot.performed += context => _weaponController.Shoot();
+    _playerMovement.MeeleAttack.performed += context => _motor.HandlePrimaryAttack();
+    _playerMovement.Shoot.performed += context => _motor.equippedWeapon.Shoot();
+    _playerMovement.Reload.performed += context => _motor.equippedWeapon.Reload();
   }
 
   void FixedUpdate()
