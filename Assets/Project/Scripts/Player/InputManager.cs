@@ -1,46 +1,57 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 public class InputManager : MonoBehaviour
 {
-  private PlayerActions _playerActions;
-  public PlayerActions.PlayerMovementActions _playerMovement;
-  private PlayerMotor _motor;
-  private CameraMovement _cameraMovement;
-
-  void Awake()
-  {
-    _playerActions = new PlayerActions();
-    _playerMovement = _playerActions.PlayerMovement;
+    [Header("Input References")] 
+    private PlayerActions playerActions;
     
-    _motor = GetComponent<PlayerMotor>();
+    public PlayerActions.PlayerMovementActions playerMovement;
+    public PlayerActions.MeleeActions meleeActions;
+    public PlayerActions.ShootWeaponActions shootActions;
     
-    _cameraMovement = GetComponent<CameraMovement>();
+    private PlayerMotor motor;
+    private WeaponController WeaponMotor;
+    private SwordWeapon sword;
+    private CameraMovement cameraMovement;
+
+    void Awake()
+    {
+        playerActions = new PlayerActions();
+        playerMovement = playerActions.PlayerMovement;
+        meleeActions = playerActions.Melee;
+        shootActions = playerActions.ShootWeapon;
+        
+        motor = GetComponent<PlayerMotor>();
+        cameraMovement = GetComponent<CameraMovement>();
+
+        playerMovement.Jump.performed += context => motor.Jump();
+        playerMovement.Sprint.performed += context => motor.Sprint();
+        shootActions.Shoot.performed += context => WeaponMotor.Shoot();
+        shootActions.Reload.performed += context => WeaponMotor.Reload();
+        
+    }
     
-    _playerMovement.Jump.performed += context => _motor.Jump();
-    _playerMovement.Sprint.performed += context => _motor.Sprint();
-    _playerMovement.MeeleAttack.performed += context => _motor.HandlePrimaryAttack();
-    _playerMovement.Shoot.performed += context => _motor.equippedWeapon.Shoot();
-    _playerMovement.Reload.performed += context => _motor.equippedWeapon.Reload();
-  }
+    void FixedUpdate()
+    {
+        motor.ProcessMove(playerMovement.Movement.ReadValue<Vector2>());
+    }
 
-  void FixedUpdate()
-  {
-    _motor.ProcessMove(_playerMovement.Movement.ReadValue<Vector2>());
-  }
+    private void LateUpdate()
+    {
+        cameraMovement.ProcessLook(playerMovement.Camera.ReadValue<Vector2>());
+    }
 
-  private void LateUpdate()
-  {
-    _cameraMovement.ProcessLook(_playerMovement.Camera.ReadValue<Vector2>());
-  }
+    private void OnEnable()
+    {
+        playerMovement.Enable();
+        //meleeActions.Enable();
+        //shootActions.Enable();
+    }
 
-  private void OnEnable()
-  {
-    _playerMovement.Enable();
-  }
-
-  private void OnDisable()
-  {
-    _playerMovement.Disable();
-  }
+    private void OnDisable()
+    {
+        playerMovement.Disable();
+        //meleeActions.Disable();
+        //shootActions.Disable();
+    }
 }
