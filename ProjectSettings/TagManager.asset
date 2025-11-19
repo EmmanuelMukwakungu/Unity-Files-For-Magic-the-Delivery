@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Weapon Hold Point
   - Bullet
-  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -17,7 +16,7 @@ TagManager:
   - ground
   - Interactable
   - Trigger
-  - Enemy
+  - 
   - 
   - 
   - 
