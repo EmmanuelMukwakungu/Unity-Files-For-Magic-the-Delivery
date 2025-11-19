@@ -79,4 +79,19 @@ public class SpawnWeapon : MonoBehaviour
         if (playerInside && currentWeapon == null)
             SpawnRandomWeapon();
     }
+    
+    public void StartSpawning()
+    {
+        playerInside = true;
+        StartCoroutine(SpawnAfterDelay());
+    }
+
+    public void StopSpawning()
+    {
+        playerInside = false;
+
+        if (currentWeapon != null)
+            currentWeapon.SetActive(false);
+    }
+
 }

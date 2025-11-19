@@ -10,6 +10,9 @@ public class RoomController : MonoBehaviour
     public GameObject enemyPrefab;
     public Transform[] enemySpawnPoints;
     public int enemiesPerWave = 3;
+    
+    [Header("Weapon Spawner")]
+    public SpawnWeapon weaponSpawner;
 
     private int enemiesAlive = 0;
     private bool roomActive = false;
@@ -31,6 +34,9 @@ public class RoomController : MonoBehaviour
         // Lock doors
         entranceDoor.isTrigger = false;
         exitDoor.isTrigger = false;
+        
+        if (weaponSpawner != null)
+            weaponSpawner.StartSpawning();
 
         // Spawn first wave
         SpawnWave();
@@ -59,6 +65,9 @@ public class RoomController : MonoBehaviour
         if (enemiesAlive <= 0)
         {
             Debug.Log("All enemies dead!");
+            
+            if (weaponSpawner != null)
+                weaponSpawner.StopSpawning();
 
             // Open doors -> triggers again
             entranceDoor.isTrigger = true;

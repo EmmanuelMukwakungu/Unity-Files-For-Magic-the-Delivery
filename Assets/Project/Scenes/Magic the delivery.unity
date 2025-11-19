@@ -3507,6 +3507,7 @@ MonoBehaviour:
   - {fileID: 1187095769}
   - {fileID: 1909548641}
   enemiesPerWave: 3
+  weaponSpawner: {fileID: 1532090153}
 --- !u!4 &251706855
 Transform:
   m_ObjectHideFlags: 0
@@ -33249,7 +33250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarSprite: {fileID: 158200903}
-  roomController: {fileID: 0}
+  roomController: {fileID: 251706854}
   maxHealth: 3
 --- !u!114 &2135344081
 MonoBehaviour:
