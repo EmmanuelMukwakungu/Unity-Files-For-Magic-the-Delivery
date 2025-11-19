@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask GroundLayer, whatIsPlayer;
+    private EnemyHealth _enemyHealth;
     
     [Header("Patrol Settings")]
     public List<Transform> patrolPoints = new List<Transform>();
@@ -37,26 +38,17 @@ public class Enemy : MonoBehaviour
             } 
         }
         agent = GetComponent<NavMeshAgent>();
+        _enemyHealth = GetComponent<EnemyHealth>();
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Bullet"))
         {
-            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
+            if (_enemyHealth != null)
             {
-                playerHealth.TakeDamage(damageAmount);
-            }
-        }
-
-        if (other.CompareTag("Bullet"))
-        {
-            EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
-            {
-                enemyHealth.TakeDamage(damageOnEnemy);
+                _enemyHealth.TakeDamage(damageOnEnemy);
             }
         }
 

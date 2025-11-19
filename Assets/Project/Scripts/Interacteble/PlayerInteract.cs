@@ -30,7 +30,7 @@ public class PlayerInteract : MonoBehaviour
             {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();  
                 playerUI.UpdateText(interactable._promptMessage);
-                if (_inputManager._playerMovement.Interact.triggered)//If E is pressed
+                if (_inputManager.playerMovement.Interact.triggered)//If E is pressed
                 {
                     interactable.BaseInteract(gameObject);
                 }

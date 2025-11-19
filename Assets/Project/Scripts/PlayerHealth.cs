@@ -22,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
     
     void Start()
     {
+        menuManager = FindObjectOfType<MenuManager>();
         health = maxHealth;
         damageOverlay.color = new Color(damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, 0);
 
@@ -77,8 +78,9 @@ public class PlayerHealth : MonoBehaviour
         durationTimer = 0f;
         damageOverlay.color = new Color(damageOverlay.color.r, damageOverlay.color.g, damageOverlay.color.b, 1);
         
-        if (health == 0)
+        if (health <= 0)
         {
+            health = 0;
             GameOverScreen.SetActive(true);
             menuManager.crossHair.enabled = false;
             menuManager.pauseBtn.enabled = false;
@@ -97,4 +99,19 @@ public class PlayerHealth : MonoBehaviour
         }
 
     }
+    
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.collider.CompareTag("Enemy"))
+        {
+            Enemy enemy = hit.collider.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                TakeDamage(enemy.damageAmount);
+            }
+        }
+    }
+
+   
+
 }

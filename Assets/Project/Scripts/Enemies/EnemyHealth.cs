@@ -5,26 +5,24 @@ public class EnemyHealth : MonoBehaviour
 {
     [Header("UI Elements")]
     [SerializeField] private Image healthBarSprite;
-    
+    public RoomController roomController;
+
     [Header("Health Settings")]
     private float health;
     public float maxHealth = 3f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public event System.Action OnEnemyDeath;
+
     void Start()
     {
         health = maxHealth;
         UpdateHealthBar();
-        
-        
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            TakeDamage(5);
-        }
+        if (Input.GetKeyDown(KeyCode.H)) 
+        { TakeDamage(1); }
     }
 
     public void UpdateHealthBar()
@@ -45,12 +43,23 @@ public class EnemyHealth : MonoBehaviour
         {
             Die();
         }
-
     }
 
     public void Die()
     {
         Debug.Log("Enemy has died");
+
+        if (roomController != null)
+            roomController.OnEnemyDied();
+        else
+            Debug.LogError("RoomController is NOT assigned on Enemy!");
+
         gameObject.SetActive(false);
     }
+
+    public void SetRoomController(RoomController controller)
+    {
+        roomController = controller;
+    }
 }
+
